@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的导航</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <div class="wrapper" id="mainxxx">
+            
+        </div>
+    </main>
+    <footer></footer>
+    <script>
+        keys = {
+            '0':['q','w','e','r','t','y','u','i','o','p'],
+//          '0':{0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p'},
+            '1':['a','s','d','f','g','h','j','k','l'],
+//          '1':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l'},
+            '2':['z','x','c','v','b','n','m'],
+//          '2':{0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m'},                       数组中套数组，套娃模式
+            'length':3
+        }
+        hash = {
+            'q':'qq.com',
+            'w':'weibo.com',
+            'e':'ele.me',
+            'r':'renren.com',
+            't':'tianya.com',
+            'y':'youtube.com',
+            'u':'uc.com',
+            'i':'iqiyi.com',
+            'o':'opera.com',
+            'p': undefined,
+            'a':'acfun.com',
+            's':'sohu.com',
+            'z':'zhihu.com',
+        }
+        hashInlocalStorage = JSON.parse(localStorage.getItem('zzz') || 'null' )    //取出 localStorage中的zzz对应的hash       
+        if(hashInlocalStorage){
+            hash  = hashInlocalStor        }
+
+        //遍历keys，生成kbd标签
+        index = 0
+        while(index < keys['length']){                                        //0,1,2
+            divxxx = document.createElement('div')
+            mainxxx.appendChild(divxxx)
+            row = keys[index]                                                 //row为第一个数组，第二个数组，第三个数组
+            index2 = 0
+            while(index2 < row['length']){                                    // index2的取值一步步累加，但不能大过这个数组的长度
+                kbdxxx = document.createElement('kbd')
+                kbdxxx.textContent = row[index2]                              //row[index2] 将key对应的value取出，也就是那些字母
+
+                buttonX = document.createElement('button')          //在buttonX这里创建一个‘button’, 内容为E
+                buttonX.textContent = '编辑'
+
+                buttonX.id = row[index2]                                    //buttonX的id 为 对应的字母
+                buttonX.onclick = function(xzkjcnxlkcjlk){
+                    key = (xzkjcnxlkcjlk['target']['id'])  // q w e r
+                    x = prompt('给我一个网址')
+                    hash[key] = x   //让hash对应的值为这个x，也就是 网址
+                    localStorage.setItem('zzz',JSON.stringify(hash))      //只要hash变了，就将变化后的hash存在zzz中
+                    console.log(hash)
+                }
+
+                kbdxxx.appendChild(buttonX)                         //给kdb一个孩子，名为buttonX
+                divxxx.appendChild(kbdxxx)
+                index2 = index2+1
+            }
+            index = index+1
+        }
+
+        document .onkeypress = function(xzkjcnxlkcjlk){
+            key = xzkjcnxlkcjlk['key']           //对应的是用户输入的按键             // console.log('我发现你输入了一个字')
+            website = hash[key]                                                     // console.log('你按键的时候的所有信息是')
+            console.log(website)                                                    // console.log(xzkjcnxlkcjlk['key'])
+            //location.href = 'http://'+ website
+            window.open('http://' + website,'_blank')
+        }                                                                          
+    </script>
+</body>
+
+</html>
